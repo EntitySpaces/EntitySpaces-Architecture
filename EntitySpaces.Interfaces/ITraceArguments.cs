@@ -1,14 +1,7 @@
-EntitySpaces ORM Architecture
-=========================
-
-EntitySpaces Architecture for Microsoft.NET
-
-###LICENSE###
-
-														New BSD License
-
-											Copyright (c) 2006-2012, EntitySpaces, LLC
-													  All rights reserved.
+﻿/*  New BSD License
+-------------------------------------------------------------------------------
+Copyright (c) 2006-2012, EntitySpaces, LLC
+All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -31,13 +24,42 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-------------------------------------------------------------------------------
+*/
 
+using System;
+using System.Collections.Generic;
+using System.Text;
 
+using System.Data;
+using System.Diagnostics;
+using System.Threading;
 
-###INSTALL THE OFFICIAL RELEASE###
-* [To install click here - use the direct download link] 
-(http://download.cnet.com/EntitySpaces-Studio/3000-10250_4-10590953.html?tag=mncol;1)
+namespace EntitySpaces.Interfaces
+{
+    public interface ITraceArguments
+    {
+        long PacketOrder { get; set; }
+        string Syntax { get; set; }
+        esDataRequest Request { get; set; }
+        int ThreadId { get; set; }
+        string Action { get; set; }
+        string CallStack { get; set; }
+        IDbCommand SqlCommand { get; set; }
+        string ApplicationName { get; set; }
+        string TraceChannel { get; set; }
+        long Duration { get; set; }
+        long Ticks { get; set; }
+        string Exception { get; set; }
+        List<ITraceParameter> Parameters { get; set; }
+    }
 
-
-<img src="https://raw.github.com/EntitySpaces/EntitySpaces-Architecture/master/logo.png" border="0">
-
+    public interface ITraceParameter
+    {
+        string Name { get; set; }
+        string Direction { get; set; }
+        string ParamType { get; set; }
+        string BeforeValue { get; set; }
+        string AfterValue { get; set; }
+    }
+}

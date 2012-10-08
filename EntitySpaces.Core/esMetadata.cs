@@ -1,14 +1,7 @@
-EntitySpaces ORM Architecture
-=========================
-
-EntitySpaces Architecture for Microsoft.NET
-
-###LICENSE###
-
-														New BSD License
-
-											Copyright (c) 2006-2012, EntitySpaces, LLC
-													  All rights reserved.
+/*  New BSD License
+-------------------------------------------------------------------------------
+Copyright (c) 2006-2012, EntitySpaces, LLC
+All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -31,13 +24,33 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-------------------------------------------------------------------------------
+*/
 
+using System;
+using System.Collections.Generic;
 
+using EntitySpaces.Interfaces;
 
-###INSTALL THE OFFICIAL RELEASE###
-* [To install click here - use the direct download link] 
-(http://download.cnet.com/EntitySpaces-Studio/3000-10250_4-10590953.html?tag=mncol;1)
+namespace EntitySpaces.Core
+{
+    /// <summary>
+    /// Serves as a base class to the generated meta data classes.
+    /// </summary>
+    public class esMetadata
+    {
+        protected esColumnMetadataCollection m_columns = null;
+        protected Guid m_dataID = Guid.NewGuid();
 
+        protected Dictionary<string, esProviderSpecificMetadata> m_providerMetadataMaps =
+            new Dictionary<string, esProviderSpecificMetadata>();
 
-<img src="https://raw.github.com/EntitySpaces/EntitySpaces-Architecture/master/logo.png" border="0">
-
+        /// <summary>
+        /// Used to eliminate the need for Reflection so EntitySpaces can run under
+        /// medium trust
+        /// </summary>
+        /// <param name="mapName">The name of the 'providerMetadataKey' from the config file</param>
+        /// <returns>A delegate that can be called to get the esProviderSpecificMetadata matching the 'providerMetadataKey'</returns>
+        protected delegate esProviderSpecificMetadata MapToMeta(string mapName);
+    }
+}
